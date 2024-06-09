@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.standalone.min.css">
+    <link rel="stylesheet" href="request.css">
+    <title>Leave Portal</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/4c124acc27.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+    <script src="./static/js/form.js"></script>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <ul>
+            <li>
+                <a href="student.html" class="logo">
+                    <img src="./MDM_logo.jpeg" alt="">
+                    <span class="nav-item">MDM</span>
+                </a>
+            </li>
+            <li><a href="#">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item" onclick="navigateToUserPage()">User</span>
+
+                    <script>
+                        function navigateToUserPage() {
+                            window.location.href = "user.html";
+                        }
+                    </script>
+                </a></li>
+            <li><a href="#">
+                    <i class="fas fa-cog"></i>
+                    <span class="nav-item">Settings</span>
+                </a></li>
+            <li><a href="#" class="logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-item" id="signOutButton">Log out</span>
+                </a></li>
+        </ul>
+    </nav>
+    <!-- End Navbar -->
+
+    <!-- Form -->
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5 col-md-10">
+                <form>
+                    <h2 class="text-center">Request Form</h2>
+                    <div class="row mt-5">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Name of the Student</label>
+                                <input type="text" class="form-control" placeholder="" id="studentName">
+                            </div>
+                        </div>
+                        <!--  col-md-6   -->
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Roll Number</label>
+                                <input type="text" class="form-control" placeholder="" id="rollNumber">
+                            </div>
+                        </div>
+                        <!--  col-md-6   -->
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Branch</label>
+                                <input type="text" class="form-control" placeholder="" id="branch">
+                            </div>
+
+
+                        </div>
+                        <!--  col-md-6   -->
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label>Semester</label>
+                                <input type="text" class="form-control" id="semester" placeholder="">
+                            </div>
+                        </div>
+                        <!--  col-md-6   -->
+                    </div>
+                    <!--  row   -->
+
+
+                    <div class="row" style="padding-top: 10px">
+
+
+                        <span class="" style="padding-top: 15px; padding-left: 15px">Period of Leave</span>
+                        <div class="col-md-5" style="padding-right: 20px">
+                            <div class="form-group">
+                                <div class='input-group date' id='datepicker' data-date-format="dd-mm-yyyy">
+                                    <input type='text' class="form-control" name="startDate" id="startDate" placeholder="dd-mm-yyyy" />
+                                    <span class="input-group-addon">
+                                        <span class="fa fa-calendar-alt fa-2x"></span>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <span class="" style="padding-top: 10px;padding-right: 20px"><br>to</span>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <div class='input-group date' id='datepicker1' data-date-format="dd-mm-yyyy">
+                                    <input type='text' class="form-control" name="endDate" id="endDate" placeholder="dd-mm-yyyy" />
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar-alt fa-2x"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  col-md-6   -->
+
+                    <div class="row" style="padding-top: 30px">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nature of Leave</label>
+                                <input type="text" class="form-control" placeholder="Duty/Medical" id="natureOfLeave">
+                            </div>
+
+
+                        </div>
+                        <!--  col-md-6   -->
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label>Purpose of Leave</label>
+                                <input type="text" class="form-control" placeholder="" id="purpose">
+                            </div>
+                        </div>
+                        <!--  col-md-6   -->
+                    </div>
+                    <!--  row   -->
+
+
+                    <!--  row   -->
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Mobile No.</label>
+                                <input type="tel" class="form-control" placeholder="" id="mobile">
+                            </div>
+
+
+                        </div>
+                        <!--  col-md-6   -->
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="Registered email id">
+                            </div>
+                        </div>
+                        <!--  col-md-6   -->
+                    </div>
+                    <!--  row   -->
+
+
+                    <!--  row   -->
+
+
+
+
+                    <div style="padding-top: 20px">
+                        <button id="submitbtn" class="btn btn-primary btn-lg btn-block">Submit</button>
+                    </div>
+                    <div></div>
+            </div>
+        </div>
+        </form>
+    </div>
+    <!-- End Form -->
+
+</body>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyA1ozm9mG_r_7bJ4JjU3xh028dh0CLY5Ic",
+        authDomain: "medical-and-duty-leave.firebaseapp.com",
+        databaseURL: "https://medical-and-duty-leave-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "medical-and-duty-leave",
+        storageBucket: "medical-and-duty-leave.appspot.com",
+        messagingSenderId: "967600001759",
+        appId: "1:967600001759:web:d99e39e4fdd1e7fa1b8f6a",
+        measurementId: "G-BCE50YX5HY"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const firestore = getFirestore(app);
+    const db = collection(firestore, 'requests');
+
+    function forwardRequest(event) {
+        event.preventDefault();
+        var studentName = document.getElementById("studentName").value;
+        var rollNumber = document.getElementById("rollNumber").value;
+        var branch = document.getElementById("branch").value;
+        var semester = document.getElementById("semester").value;
+        var startDate = document.getElementById("startDate").value;
+        var endDate = document.getElementById("endDate").value;
+        var natureOfLeave = document.getElementById("natureOfLeave").value;
+        var purpose = document.getElementById("purpose").value;
+        var mobile = document.getElementById("mobile").value;
+        var email = document.getElementById("email").value;
+       
+        addDoc(db, {
+            studentName: studentName,
+            rollNumber: rollNumber,
+            branch: branch,
+            semester: semester,
+            startDate: startDate,
+            endDate: endDate,
+            natureOfLeave: natureOfLeave,
+            purpose: purpose,
+            mobile: mobile,
+            email: email,
+            status: "Pending"
+        })
+            .then((docRef) => {
+                console.log("User added with ID: ", docRef.id);
+                alert('Your request is sent');
+                window.location.href='student.html'
+                navigateToStudentPage();
+            })
+            .catch((error) => {
+                console.error("Error adding user: ", error);
+            });
+    }
+    const submitbtn = document.getElementById('submitbtn');
+    submitbtn.addEventListener('click', forwardRequest);
+    const signOutButton = document.getElementById('signOutButton');
+    signOutButton.addEventListener('click', () => {
+
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            console.log('User signed out successfully');
+            window.location.href = "index.html"
+            // Redirect to sign-in page or any other page after sign-out if needed
+        }).catch((error) => {
+            // An error happened.
+            console.error('Error signing out:', error);
+        });
+    });
+</script>

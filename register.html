@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+
+  <link rel="stylesheet" href="register.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Scada:wght@400&display=swap" />
+
+
+
+
+</head>
+
+<body>
+  <div class="desktop-2">
+    <div class="wrapper-frame-a">
+      <img class="frame-a-icon" alt="" src="background.jpg" />
+    </div>
+    <div class="frame-b"></div>
+    <div class="container">
+      <div class="text-input">
+        <div class="rectangle-a"></div>
+        <div class="ellipse-shape">
+          <h1 class="welcome-to-mdm">Welcome to MDM</h1>
+          <img class="ellipse-shape-child" loading="lazy" alt="" src="MDM_logo.jpeg" />
+        </div>
+        <img class="text-input-child" loading="lazy" alt="" src="./public/rectangle-4161.svg" />
+
+        <img class="text-input-item" loading="lazy" alt="" src="./public/rectangle-4162.svg" />
+      </div>
+
+      <div class="forgot-pass-frame">
+        <div class="user-i-d-input">
+          <form>
+            <div class="user-id">Display Name</div>
+
+
+          </form>
+          <form>
+            <div class="user-id">Email</div>
+
+            <input class="text-input-child" type="password" placeholder="password" id="password" required />
+          </form>
+          <div class="password-input">
+            <form>
+              <div class="password">Password
+
+              </div>
+          </div>
+          <input class="text-input-item" type="text" placeholder="email" id="email" required /></form>
+
+
+          <input class="text-input-child" type="text" placeholder="Display Name" id="dname" required />
+
+
+
+
+          <div>
+            <div class="password">You are:</div>
+          </div>
+          <select class="password" id="role" style="margin-top: -60px;" required>
+            <option value="" disabled selected>Select a role</option>
+            <option value="Student">Student</option>
+            <option value="Professor">Professor</option>
+            <option value="Medical Incharge">Medical Incharge</option>
+          </select>
+
+
+        </div>
+      </div>
+
+
+      <div class="forgot-pass-btn" style="margin-top: -80px;">
+        <div style="margin-left: 40px;">
+          <form action="">
+            <button id="signUpButton" class="login" type="button">Sign Up</button>
+          </form>
+        </div style="margin-left: 10px; margin-top: 25px;">
+        <a class="sign-up" href="index.html" style="margin-top: 7px; margin-left: 15px;">Already registered? Login</a>
+        <div class = "sign-up" id="msg" style="margin-top: 7px; margin-left: -30px;"></div>
+
+      </div>
+    </div>
+
+  </div>
+  </div>
+</body>
+<script type="module" src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js"></script>
+<script type="module" src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js"></script>
+<script type="module" src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js"></script>
+<script type="module">
+
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA1ozm9mG_r_7bJ4JjU3xh028dh0CLY5Ic",
+    authDomain: "medical-and-duty-leave.firebaseapp.com",
+    databaseURL: "https://medical-and-duty-leave-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "medical-and-duty-leave",
+    storageBucket: "medical-and-duty-leave.appspot.com",
+    messagingSenderId: "967600001759",
+    appId: "1:967600001759:web:d99e39e4fdd1e7fa1b8f6a",
+    measurementId: "G-BCE50YX5HY"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app); // Initialize auth with the app instance
+  // Instead of this
+
+
+  // You should use it like this
+  const firestore = getFirestore(app);
+  const db = collection(firestore, 'users');
+
+
+  
+
+  function signUpWithEmailAndPassword(event) {
+    event.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const displayName = document.getElementById('dname').value;
+    var dropdown = document.getElementById("role");
+    var selectOp = dropdown.options[dropdown.selectedIndex];
+    var roleVal = selectOp.value;
+    function checkEmailPattern(email) {
+      // Split the email address by '@' symbol
+      const parts = email.split('@');
+      console.log(parts)
+
+      // If the email contains '@' and the last part of the email matches the desired pattern
+      if (parts.length === 2 && parts[1].endsWith('iiitkottayam.ac.in')) {
+        return true; // Email matches the pattern
+      } else {
+        return false; // Email does not match the pattern
+      }
+    }
+
+    if (checkEmailPattern(email))// Sign up with email and password
+    {
+      createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        // Set the display name
+        // Update successful
+        console.log('User signed up:', user);
+
+        addDoc(db, {
+          email: email,
+          dname: displayName,
+          role: roleVal
+        })
+          .then((docRef) => {
+            console.log("User added with ID: ", docRef.id);
+            window.location.href = 'login.html?userType=' + roleVal.toLowerCase();
+          })
+          .catch((error) => {
+            console.error("Error adding user: ", error);
+          });
+           
+      })
+      .catch((error) => {
+        // Handle errors while updating profile
+        console.error('Error during sign-up:', error);
+      });
+    }
+    else
+    {
+      var message = document.getElementById("msg")
+      message.innerHTML = `Sorry, Only members of IIITK can register`
+    }
+  }
+
+  // Attach the signUpWithEmailAndPassword function to the button click event
+  const signUpButton = document.getElementById('signUpButton');
+  signUpButton.addEventListener('click', signUpWithEmailAndPassword);
+</script>
+<!-- 
+<script type="module" src="https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics.js"></script> -->
+
+
+
+
+</html>

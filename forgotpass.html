@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+
+  <link rel="stylesheet" href="login.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Scada:wght@400&display=swap" />
+</head>
+
+<body>
+  <div class="desktop-2">
+    <div class="wrapper-frame-a">
+      <img class="frame-a-icon" alt="" src="background.jpg" />
+    </div>
+    <div class="frame-b"></div>
+    <div class="container">
+      <div class="text-input">
+        <div class="rectangle-a"></div>
+        <div class="ellipse-shape">
+          <h1 class="welcome-to-mdm">Welcome to MDM</h1>
+          <img class="ellipse-shape-child" loading="lazy" alt="" src="MDM_logo.jpeg" />
+        </div>
+        <img class="text-input-child" loading="lazy" alt="" src="./public/rectangle-4161.svg" />
+
+        <img class="text-input-item" loading="lazy" alt="" src="./public/rectangle-4162.svg" />
+      </div>
+      <div class="forgot-pass-frame">
+        <div class="user-i-d-input">
+          <div class="user-id">Email</div>
+          <input class="text-input-child" type="text" placeholder="email" id="email" />
+          
+
+
+        </div>
+      </div>
+
+      <div class="forgot-pass-btn" style="margin-top: -25px;">
+        <div style="margin-left: 40px;">
+          <button class="login" id="login">Send</button>
+        </div>
+        <div style="margin-left: -90px; margin-top: 30px;">
+          <button style="background-color: transparent;" class="forgot"></button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged,sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA1ozm9mG_r_7bJ4JjU3xh028dh0CLY5Ic",
+      authDomain: "medical-and-duty-leave.firebaseapp.com",
+      databaseURL: "https://medical-and-duty-leave-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "medical-and-duty-leave",
+      storageBucket: "medical-and-duty-leave.appspot.com",
+      messagingSenderId: "967600001759",
+      appId: "1:967600001759:web:d99e39e4fdd1e7fa1b8f6a",
+      measurementId: "G-BCE50YX5HY"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const send = document.getElementById('login');
+    send.addEventListener('click',() => {
+        
+        const id = document.getElementById('email');
+        const email = id.value
+    
+            sendPasswordResetEmail(auth,email)
+                .then(() => {
+                    // Password reset email sent successfully
+                    alert('Password reset email sent. Please check your email.');
+                })
+                .catch((error) => {
+                    // Handle errors
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    
+                });
+        });
+  
+    </script>
+
+</body>

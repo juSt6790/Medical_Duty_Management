@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDM</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="student.css">
+    <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword ,signOut} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, query, where, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA1ozm9mG_r_7bJ4JjU3xh028dh0CLY5Ic",
+            authDomain: "medical-and-duty-leave.firebaseapp.com",
+            databaseURL: "https://medical-and-duty-leave-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "medical-and-duty-leave",
+            storageBucket: "medical-and-duty-leave.appspot.com",
+            messagingSenderId: "967600001759",
+            appId: "1:967600001759:web:d99e39e4fdd1e7fa1b8f6a",
+            measurementId: "G-BCE50YX5HY"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const firestore = getFirestore(app);
+        const db = collection(firestore, 'requests');
+        const q = query(db, where('status', '==', 'Pending'));
+        const querySnapshot = await getDocs(q);
+        var serial = 0
+        async function updateStatus(newStatus, id) {
+            querySnapshot.forEach((doc) => {
+                const requestData = doc.data();
+                const docID = doc.id
+                console.log(doc)
+                console.log(requestData)
+                var name = requestData.studentName;
+
+
+                var NatureofLeave = requestData.natureOfLeave;
+                var Semester = requestData.semester;
+                var purpose = requestData.purpose;
+                var StartDate = requestData.startDate;
+                var EndDate = requestData.endDate;
+                var EmailId = requestData.email;
+                var MobileNumber = requestData.mobile;
+                var rollNumber = requestData.rollNumber;
+                var branch = requestData.branch;
+                var Status = newStatus;
+                if (docID == id) {
+                    const docRef = doc.ref; // Get reference to the document
+                    updateDoc(docRef, { status: newStatus })
+                        .then(() => {
+                            console.log("Document successfully updated!");
+                        })
+                        .catch((error) => {
+                            console.error("Error updating document: ", error);
+                        });
+
+                    var canvas = document.getElementById('certificateCanvas');
+                    var ctx = canvas.getContext('2d');
+                    ctx.clearRect(0, 0, canvas.width, 700);
+
+                    // Certificate styles
+                    ctx.fillStyle = 'white';
+                    ctx.fillRect(0, 0, canvas.width, 700);
+                    ctx.fillStyle = 'black';
+                    ctx.font = '30px Arial';
+
+                    console.log(requestData)
+
+
+
+
+                    // Certificate content
+                    ctx.fillText('Leave Certificate', 50, 50);
+                    ctx.fillText('Student Name: ' + name, 50, 100);
+                    ctx.fillText('Roll Number: ' + rollNumber, 50, 150);
+                    ctx.fillText('Branch: ' + branch, 50, 200);
+                    ctx.fillText('Leave Dates: ' + StartDate + '-' + EndDate, 50, 250);
+                    ctx.fillText('Nature of Leave: ' + NatureofLeave, 50, 300);
+                    ctx.fillText('Purpose: ' + purpose, 50, 350);
+                    ctx.fillText('Semester: ' + Semester, 50, 400);
+                    ctx.fillText('Email Id: ' + EmailId, 50, 450);
+                    ctx.fillText('Mobile Number: ' + MobileNumber, 50, 500);
+
+                    ctx.fillText('Status: ' + Status, 50, 550);
+
+
+                    // Add more content as needed
+
+                    // Convert canvas to image
+                    var imgData = canvas.toDataURL('image/jpeg');
+                    const blob = base64toBlob(imgData);
+                    const url = URL.createObjectURL(blob);
+
+                    console.log('Certificate image data:', imgData);
+                    const selectedStudentContainer = document.getElementById('selectedStudentDetails');
+                    selectedStudentContainer.remove();
+                    const text = document.createElement('div');
+                    text.innerHTML = `<span style="margin-left:100px";>Certificate has been generated. <a id="cert" href=${url} target="_blank"><span style="margin-left:100px";>Tap to View</span></a></span>`
+                    document.body.appendChild(text)
+                    const newDB = collection(firestore, 'certificates');
+                    addDoc(newDB, {
+                        url : imgData,
+                        id : id,
+                        studentmail : EmailId
+                    })
+                        .then((docRef) => {
+                            console.log("User added with ID: ", docRef.id);
+                            alert('Certificate is generated');
+                            
+                        })
+                        .catch((error) => {
+                            console.error("Error adding user: ", error);
+                        });
+
+
+
+                }
+            })
+
+        }
+        function base64toBlob(base64Data) {
+            const byteCharacters = atob(base64Data.split(',')[1]);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            return new Blob([byteArray], { type: 'image/jpeg' });
+        }
+        querySnapshot.forEach((doc) => {
+            
+            const requestData = doc.data();
+            const nature = requestData.natureOfLeave
+            const id = doc.id
+            if(nature.toLowerCase() == "medical"){
+                serial++
+            // Create HTML elements to represent the request
+            const requestElement = document.createElement('div');
+            requestElement.classList.add('user-detail'); // Add user-detail class
+            requestElement.innerHTML = `
+<div class = "user-detail">
+  <div class="request-id">
+    <span>${serial}.Request ID: ${id}</span>
+  </div>
+  <div class="student-name">
+    <span>Student Name: ${requestData.studentName}</span>
+    <button onclick="selectRequest('${id}')">Select</button>
+  </div></div>
+`;
+
+            // Append the request element to a container in your HTML document
+            document.getElementById('pendingRequestsList').appendChild(requestElement);
+        }});
+
+        window.selectRequest = async function selectRequest(id) {
+
+            const q = query(db, where('status', '==', 'Pending'))
+
+            const querySnapshot = await getDocs(q);
+
+            querySnapshot.forEach((doc) => {
+
+                const requestData = doc.data();
+                const nature = requestData.natureOfLeave
+                if (id == doc.id && nature.toLowerCase() == "medical")
+                // Remove the pending requests list container
+                {
+                    const pendingRequestsList = document.getElementById('pendingRequestsList');
+                    pendingRequestsList.remove();
+
+                    // Create a new container to display the selected student details
+                    const selectedStudentContainer = document.createElement('div');
+                    selectedStudentContainer.id = 'selectedStudentDetails';
+
+                    // Add the selected student details to the container
+                    selectedStudentContainer.innerHTML = `
+            <div class="user-detail">
+                <div class="request-id">
+                    <span>Request ID: ${id}</span>
+                </div>
+                <div class="student-details">
+                    <span>Student Name: ${requestData.studentName}</span>
+                    <span>Roll Number: ${requestData.rollNumber}</span>
+                    <span>Branch: ${requestData.branch}</span>
+                    <span>Nature of Leave: ${requestData.natureOfLeave}</span>
+                    <span>Semester: ${requestData.semester}</span>
+                    <span>Purpose: ${requestData.purpose}</span>
+                    <span>Start Date: ${requestData.startDate}</span>
+                    <span>End Date: ${requestData.endDate}</span>
+                    <span>Email Id: ${requestData.email}</span>
+                    <span>Mobile Number: ${requestData.mobile}</span>
+                    <span>Status: ${requestData.status}</span>
+                    
+                </div>
+                <div class="button-container">
+                    <button class = "approve-button"id="approveButton${id}">Approve</button>
+                <button class = "disapprove-button"id="disapproveButton${id}">Disapprove</button>
+        </div>
+            </div>
+        `;
+
+                    // Append the container with selected student details to the document body
+                    document.body.appendChild(selectedStudentContainer);
+                }
+            })
+            const approveButton = document.getElementById(`approveButton${id}`);
+            const disapproveButton = document.getElementById(`disapproveButton${id}`);
+            approveButton.addEventListener('click', function () {
+                updateStatus('Approved', id);
+            });
+
+            disapproveButton.addEventListener('click', function () {
+                updateStatus('Disapproved', id);
+            });
+
+        }
+        const signOutButton = document.getElementById('signOutButton');
+    signOutButton.addEventListener('click', () => {
+
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            console.log('User signed out successfully');
+            window.location.href = "index.html"
+            // Redirect to sign-in page or any other page after sign-out if needed
+        }).catch((error) => {
+            // An error happened.
+            console.error('Error signing out:', error);
+        });
+    });
+        
+
+
+
+
+
+    </script>
+
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li>
+                <a href="doctor.html" class="logo">
+                    <img src="./MDM_logo.jpeg" alt="">
+                    <span class="nav-item">MDM</span>
+                </a>
+            </li>
+            
+            <li><a href="user.html">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item">User</span>
+                </a></li>
+            <li><a href="settings.html">
+                    <i class="fas fa-cog"></i>
+                    <span class="nav-item">Settings</span>
+                </a></li>
+           
+            <li><a href="#" class="logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-item" id="signOutButton">Log out</span>
+                </a></li>
+        </ul>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-5 col-md-12" id="welcome_text">
+                <div class="col-md-5 d-flex align-items-start justify-content-start">
+                    <div id="pendingRequestsList">
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+    <canvas id="certificateCanvas" width="800" height="600"></canvas>
+
+</body>
+
+</html>

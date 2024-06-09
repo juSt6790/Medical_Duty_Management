@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+    
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Scada:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400&display=swap"
+    />
+    <link rel="stylesheet" href="login.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Scada:wght@400&display=swap"
+    />
+    <script src="index.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics.js"></script>
+
+    
+  </head>
+  <body>
+    <div class="desktop-1">
+      
+      <div class="frame-a">
+        <div class="frame-a-child"></div>
+        <div class="frame-b-student">
+          <img
+            class="frame-c-medical"
+            loading="lazy"
+            alt=""
+            src="MDM_logo.jpeg"
+          />
+        </div>
+        <div class="login-area">
+          <div class="login-as">Login as</div>
+        </div>
+        <div class="container-frame-b">
+          <div class="student-ellipse">
+            <div class="m-d-m-admin">
+              <div class="nested-frames">
+                
+                <button class="student" onclick="submitForm('student')">Student</button>
+                
+              </div>
+              <img
+                class="incharge-ellipse-icon"
+                loading="lazy"
+                alt=""
+                src="stulogo.png"
+              />
+            </div>
+            <div class="frame-professor">
+              
+              <button class="student" onclick="submitForm('professor')" >Professor</button>
+             
+              <img
+                class="text-name-icon"
+                loading="lazy"
+                alt=""
+                src="prologo.png"
+              />
+            </div>
+            <div class="m-d-m-admin1">
+              <div class="medical-incharge-wrapper">
+                
+                <button class="student" onclick="submitForm('medical')">Medical Incharge</button>
+                
+              </div>
+              <img
+                class="m-d-m-admin-child"
+                loading="lazy"
+                alt=""
+                src="milogo.png"
+              /> 
+            </div>
+            
+            <form>
+              <button class="student"><a href="register.html">New User ? Sign Up</a></button>
+            </form>
+            
+          </div>
+          
+        </div>
+        
+      </div>
+      
+      <main class="container-frame-c">
+        <div class="frame-welcome">
+
+          <div class="frame-welcome-child"></div>
+          <div class="frame-welcome-item"></div>
+          <h1 class="welcome-to-mdm-container">
+            <p class="welcome-to">Welcome to</p>
+            <p class="blank-line">&nbsp;</p>
+            <p class="blank-line1">&nbsp;</p>
+            <p class="blank-line2">&nbsp;</p>
+            <p class="blank-line3">&nbsp;</p>
+            <p class="blank-line4">&nbsp;</p>
+            <p class="mdm">MDM</p>
+          </h1>
+        </div>
+      </main>
+    </div>
+  </body>
+  
+</html>

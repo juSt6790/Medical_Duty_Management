@@ -1,0 +1,377 @@
+body {
+    margin: 0;
+    line-height: normal;
+  }
+  
+  :root {
+    /* fonts */
+    --font-open-sans: "Open Sans";
+    --font-scada: Scada;
+  
+    /* font sizes */
+    --font-size-xl: 20px;
+    --font-size-base: 16px;
+    --font-size-21xl: 40px;
+    --font-size-5xl: 24px;
+    --font-size-13xl: 32px;
+  
+    /* Colors */
+    --color-white: #fff;
+    --color-darkmagenta: #810096;
+    --color-snow: #fffbfb;
+    --color-black: #000;
+  
+    /* Gaps */
+    --gap-31xl: 50px;
+    --gap-15xl: 34px;
+    --gap-xl: 20px;
+  
+    /* Paddings */
+    --padding-20xl: 39px;}
+.frame-a-child,
+.sign-up {
+  position: relative;
+  display: none;
+}
+.sign-up {
+  width: 153px;
+  line-height: 22px;
+  white-space: nowrap;
+  z-index: 1;
+}
+.frame-a-child {
+  width: 703px;
+  height: 1040px;
+  border-radius: var(--br-6xs);
+  background-color: var(--color-black);
+  max-width: 100%;
+}
+.frame-c-medical {
+  height: 256px;
+  width: 281px;
+  position: relative;
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: 2;
+}
+.frame-b-student {
+  width: 367px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+  max-width: 100%;
+}
+.reg{
+  text-decoration: none;
+  color: #fff;
+}
+.login-as {
+  height: 39px;
+  width: 273px;
+  position: relative;
+  line-height: 22px;
+  display: inline-block;
+  flex-shrink: 0;
+  z-index: 2;
+}
+.login-area {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.student {
+  position: relative;
+  line-height: 22px;
+  z-index: 2;
+  font-size: large;
+}
+.nested-frames {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 0 12px;
+}
+.incharge-ellipse-icon {
+  height: 72px;
+  width: 81px;
+  position: relative;
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: 2;
+}
+.m-d-m-admin {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-xl);
+}
+.proffesor {
+  position: relative;
+  line-height: 22px;
+  z-index: 2;
+}
+.text-name-icon {
+  height: 71px;
+  width: 79px;
+  position: relative;
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: 2;
+}
+.frame-professor {
+  align-self: stretch;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-xl);
+}
+.medical-incharge {
+  position: relative;
+  line-height: 22px;
+  z-index: 2;
+}
+.medical-incharge-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 0 15px;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.m-d-m-admin-child {
+  height: 72px;
+  width: 81px;
+  position: relative;
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: 2;
+}
+.m-d-m-admin1 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  max-width: 100%;
+  gap: var(--gap-xl);
+}
+.container-frame-b,
+.frame-a,
+.student-ellipse {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.student-ellipse {
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 34px 0;
+}
+.container-frame-b,
+.frame-a {
+  box-sizing: border-box;
+}
+.container-frame-b {
+  align-self: stretch;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0 0 0 5px;
+}
+.frame-a {
+  margin-top: -10px;
+  margin-right: -12px;
+  margin-bottom: -6px;
+  width: 703px;
+  border-radius: var(--br-6xs);
+  background-color: var(--color-black);
+  flex-direction: column;
+  align-items: center;
+  padding: 92px 95px 270px 79px;
+  gap: 50px 0;
+  flex-shrink: 0;
+  z-index: 1;
+  font-size: var(--font-size-21xl);
+  color: var(--color-white);
+  font-family: var(--font-open-sans);
+}
+.forgot-password {
+  position: relative;
+  line-height: 22px;
+  display: none;
+}
+.frame-welcome-child {
+  height: 1px;
+  width: 1px;
+  position: relative;
+  background-color: #4d0353;
+  display: none;
+}
+.frame-welcome-item {
+  height: 1024px;
+  width: 754px;
+  position: relative;
+  background-color: var(--color-darkmagenta);
+  display: none;
+  max-width: 100%;
+}
+.blank-line,
+.blank-line1,
+.blank-line2,
+.blank-line3,
+.blank-line4,
+.mdm,
+.welcome-to {
+  margin: 0;
+}
+.welcome-to-mdm-container {
+  margin: 0;
+  height: 500px;
+  flex: 1;
+  position: relative;
+  font-size: 96px;
+  line-height: 22px;
+  font-weight: 400;
+  font-family: var(--font-open-sans);
+  color: #fff5f5;
+  display: inline-block;
+  max-width: 100%;
+  z-index: 2;
+}
+.frame-welcome {
+  width: 850px;
+  background-color: var(--color-darkmagenta);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 300px 28px;
+  box-sizing: border-box;
+  min-height: 1024px;
+  max-width: 100%;
+  z-index: 1;
+}
+.container-frame-c,
+.desktop-1 {
+  display: flex;
+  justify-content: flex-start;
+  text-align: left;
+  font-size: var(--font-size-xl);
+  color: var(--color-snow);
+  font-family: var(--font-scada);
+}
+.container-frame-c {
+  align-self: stretch;
+  flex-direction: row;
+  align-items: flex-start;
+  max-width: 100%;
+  flex-shrink: 0;
+  margin-top: -1150px;
+}
+.desktop-1 {
+  width: 100%;
+  position: relative;
+  background-color: var(--color-white);
+  overflow: hidden;
+  flex-direction: column;
+  align-items: flex-end;
+  letter-spacing: normal;
+}
+@media screen and (max-width: 825px) {
+  .login-as,
+  .medical-incharge,
+  .proffesor,
+  .student {
+    font-size: var(--font-size-13xl);
+    line-height: 18px;
+  }
+  .frame-a {
+    gap: 50px 0;
+    padding: 60px 47px 175px var(--padding-20xl);
+    box-sizing: border-box;
+  }
+  .welcome-to-mdm-container {
+    font-size: 48px;
+    line-height: 13px;
+  }
+  .frame-welcome {
+    padding-top: 1050px;
+    padding-bottom: 89px;
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 675px) {
+  .m-d-m-admin1 {
+    flex-wrap: wrap;
+  }
+  .student-ellipse {
+    gap: 34px 0;
+  }
+}
+@media screen and (max-width: 450px) {
+  .sign-up {
+    font-size: var(--font-size-base);
+    line-height: 18px;
+  }
+  .login-as,
+  .student {
+    font-size: var(--font-size-5xl);
+    line-height: 13px;
+  }
+  .m-d-m-admin {
+    flex-wrap: wrap;
+  }
+  .proffesor {
+    font-size: var(--font-size-5xl);
+    line-height: 13px;
+  }
+  .frame-professor {
+    flex-wrap: wrap;
+  }
+  .medical-incharge {
+    font-size: var(--font-size-5xl);
+    line-height: 13px;
+  }
+  .frame-a {
+    padding-top: var(--padding-20xl);
+    padding-right: 20px;
+    padding-bottom: 114px;
+    box-sizing: border-box;
+  }
+  .forgot-password {
+    font-size: var(--font-size-base);
+    line-height: 18px;}}
+    
+button.student,
+button.professor,
+button.medical-incharge {
+  
+  position: relative;
+  line-height: 22px;
+  z-index: 2;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-open-sans);
+  color: var(--color-white);
+  font-size: 30px;
+
+}
+
+button.student:hover,
+button.professor:hover,
+button.medical-incharge:hover {
+  /* Add hover styles if necessary */
+  color: #ccc; /* Example color change on hover */
+}

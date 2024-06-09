@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDM</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="student.css">
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged,signOut } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA1ozm9mG_r_7bJ4JjU3xh028dh0CLY5Ic",
+            authDomain: "medical-and-duty-leave.firebaseapp.com",
+            databaseURL: "https://medical-and-duty-leave-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "medical-and-duty-leave",
+            storageBucket: "medical-and-duty-leave.appspot.com",
+            messagingSenderId: "967600001759",
+            appId: "1:967600001759:web:d99e39e4fdd1e7fa1b8f6a",
+            measurementId: "G-BCE50YX5HY"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const firestore = getFirestore(app);
+        const db = collection(firestore, 'certificates');
+        const db2 = collection(firestore,'Prof_certificates')
+
+        onAuthStateChanged(auth, async function (user) {
+            console.log("Auth state changed");
+            if (user) {
+                // User is signed in
+                const uid = user.uid;
+                const email = user.email;
+                const displayName = user.dname;
+
+                console.log("User ID:", uid);
+                console.log("Email:", email);
+                console.log("Display Name:", displayName);
+                // const q = query(db); // This will get all documents in the collection
+
+                // const querySnapshot = await getDocs(q);
+
+                // querySnapshot.forEach((doc) => {
+                //     console.log("Document ID:", doc.id);
+                //     console.log("Document data:", doc.data());
+                // });
+                
+                const q = query(db, where('studentmail', '==', email));
+                console.log("Query:", q);
+
+                const querySnapshot = await getDocs(q);
+                console.log("Query snapshot:", querySnapshot);
+
+                querySnapshot.forEach((doc) => {
+                   
+                    
+                    const requestData = doc.data();
+                   
+                    const id = doc.id;
+                    
+                    const url = requestData.url;
+                    function base64toBlob(url) {
+                        const byteCharacters = atob(url.split(',')[1]);
+                        const byteNumbers = new Array(byteCharacters.length);
+                        for (let i = 0; i < byteCharacters.length; i++) {
+                            byteNumbers[i] = byteCharacters.charCodeAt(i);
+                        }
+                        const byteArray = new Uint8Array(byteNumbers);
+                        return new Blob([byteArray], { type: 'image/jpeg' });
+                    }
+                    const blob = base64toBlob(url);
+                    const newurl = URL.createObjectURL(blob);
+                    // Create HTML elements to represent the request
+                    const requestElement = document.createElement('div');
+                    requestElement.classList.add('user-detail'); // Add user-detail class
+                    requestElement.innerHTML = `
+                        <div class="user-detail">
+                            <div class="request-id">
+                                <span>Certificate ID: ${id}</span>
+                            </div>
+                            <div class="student-name">
+                                <span><a href=${newurl} target ="_blank">Link</a></span>
+                            </div>
+                        </div>
+                    `;
+                    // Append the request element to a container in your HTML document
+                    document.getElementById('pendingRequestsList').appendChild(requestElement);
+                });
+                const q2 = query(db2, where('studentmail', '==', email));
+                console.log("Query:", q2);
+
+                const querySnap = await getDocs(q2);
+                console.log("Query snapshot:", querySnap);
+                querySnap.forEach((doc) => {
+                   
+                    
+                   const requestData = doc.data();
+                  
+                   const id = doc.id;
+                   
+                   const url = requestData.url;
+                   function base64toBlob(url) {
+                       const byteCharacters = atob(url.split(',')[1]);
+                       const byteNumbers = new Array(byteCharacters.length);
+                       for (let i = 0; i < byteCharacters.length; i++) {
+                           byteNumbers[i] = byteCharacters.charCodeAt(i);
+                       }
+                       const byteArray = new Uint8Array(byteNumbers);
+                       return new Blob([byteArray], { type: 'image/jpeg' });
+                   }
+                   const blob = base64toBlob(url);
+                   const newurl = URL.createObjectURL(blob);
+                   // Create HTML elements to represent the request
+                   const requestElement = document.createElement('div');
+                   requestElement.classList.add('user-detail'); // Add user-detail class
+                   requestElement.innerHTML = `
+                       <div class="user-detail">
+                           <div class="request-id">
+                               <span>Certificate ID: ${id}</span>
+                           </div>
+                           <div class="student-name">
+                               <span><a href=${newurl} target ="_blank">Link</a></span>
+                           </div>
+                       </div>
+                   `;
+                   // Append the request element to a container in your HTML document
+                   document.getElementById('pendingRequestsList').appendChild(requestElement);
+               });
+
+            } else {
+                // No user is signed in
+                console.log("No user is signed in.");
+            }
+        });
+        const signOutButton = document.getElementById('signOutButton');
+    signOutButton.addEventListener('click', () => {
+
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            console.log('User signed out successfully');
+            window.location.href = "index.html"
+            // Redirect to sign-in page or any other page after sign-out if needed
+        }).catch((error) => {
+            // An error happened.
+            console.error('Error signing out:', error);
+        });
+    });
+
+    </script>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li>
+                <a href="student.html" class="logo">
+                    <img src="./MDM_logo.jpeg" alt="">
+                    <span class="nav-item">MDM</span>
+                </a>
+            </li>
+            
+            <li><a href="./user.html">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item">User</span>
+                </a></li>
+            <li><a href="#">
+                    <i class="fas fa-cog"></i>
+                    <span class="nav-item">Settings</span>
+                </a></li>
+           
+            <li><a href="#" class="logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-item" id="signOutButton">Log out</span>
+                </a></li>
+        </ul>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-5 col-md-12" id="welcome_text">
+                <div class="col-md-5 d-flex align-items-start justify-content-start">
+                    <div id="pendingRequestsList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

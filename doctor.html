@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDM</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="doctor.css">
+    <!-- <script src="./homepage.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+    
+        const fbaseConfig = {
+          apiKey: "AIzaSyA1ozm9mG_r_7bJ4JjU3xh028dh0CLY5Ic",
+          authDomain: "medical-and-duty-leave.firebaseapp.com",
+          databaseURL: "https://medical-and-duty-leave-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "medical-and-duty-leave",
+          storageBucket: "medical-and-duty-leave.appspot.com",
+          messagingSenderId: "967600001759",
+          appId: "1:967600001759:web:d99e39e4fdd1e7fa1b8f6a",
+          measurementId: "G-BCE50YX5HY"
+        };
+    
+        const appl = initializeApp(fbaseConfig);
+        const authe = getAuth(appl);
+        const fstore = getFirestore(appl);
+        const newdbase = collection(fstore, 'users')
+        onAuthStateChanged(authe, async function (user) {
+                console.log("Auth state changed");
+                if (user) {
+                    // User is signed in
+                    const uid = user.uid;
+                    const email = user.email;
+    
+    
+                    console.log("User ID:", uid);
+                    console.log("Email:", email);
+                    const newDname = document.getElementById('dname').value
+                    const qry = query(newdbase, where('email', '==', email)); // Replace 'email' with the field name you used to store the email in Firestore
+                    const querySnap = await getDocs(qry);
+                    querySnap.forEach((doc) => {
+                      const requestData = doc.data()
+                       const name = document.getElementById('dname')
+                      name.innerHTML = `${requestData.dname}`
+                      })
+                    }})
+      </script>
+
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li>
+                <a href="#" class="logo">
+                    <img src="./MDM_logo.jpeg" alt="">
+                    <span class="nav-item">MDM</span>
+                </a>
+            </li>
+            <li><a href="user.html">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-item">User</span>
+                </a></li>
+            <li><a href="#">
+                    <i class="fas fa-cog"></i>
+                    <span class="nav-item">Settings</span>
+                </a></li>
+            
+            <li><a href="#" class="logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-item "id="signOutButton">Log out</span>
+                </a></li>
+        </ul>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-5 col-md-12" id="welcome_text">
+                <div class="col-md-5 d-flex align-items-start justify-content-start"> <!-- Updated class -->
+                    <div>
+                        <h1>Hello <span id="dname"></span></h1>
+                        <p>It’s good to see you again</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-5 col-md-12" id="not_acc">
+                <div class="col-md-5 d-flex align-items-end justify-content-end">
+            
+                    <div class="flex-grow-1" id="account_icon">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <svg
+                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-person-circle" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                    <path fill-rule="evenodd"
+                                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                                </svg>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="user.html">Account</a></li>
+                                <li><a class="dropdown-item" href="settings.html">Edit Profile</a></li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5 col-md-10">
+                <a href="viewReq.html">View Requests</a> <img src="Screenshot 2024-03-06 115941.png" alt="" srcset="">
+            </div>
+
+            <div class="col-xl-5 col-md-10">
+                <a href="genCert.html">Generate Certificate </a><img src="print.svg" width="50px" alt="" srcset="">
+            </div>
+        </div>
+            <div class="row">
+                <div class="col-xl-5 col-md-10">
+                    <a href="viewCertDoc.html"> View saved certificates</a> <img src="Screenshot 2024-03-06 120003.png" alt="" srcset="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyA1ozm9mG_r_7bJ4JjU3xh028dh0CLY5Ic",
+        authDomain: "medical-and-duty-leave.firebaseapp.com",
+        databaseURL: "https://medical-and-duty-leave-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "medical-and-duty-leave",
+        storageBucket: "medical-and-duty-leave.appspot.com",
+        messagingSenderId: "967600001759",
+        appId: "1:967600001759:web:d99e39e4fdd1e7fa1b8f6a",
+        measurementId: "G-BCE50YX5HY"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    console.log(auth)
+    const signOutButton = document.getElementById('signOutButton');
+    signOutButton.addEventListener('click', () => {
+
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            console.log('User signed out successfully');
+            window.location.href = "index.html"
+            // Redirect to sign-in page or any other page after sign-out if needed
+        }).catch((error) => {
+            // An error happened.
+            console.error('Error signing out:', error);
+        });
+    });</script>
+
+</html>
